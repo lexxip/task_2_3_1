@@ -1,22 +1,32 @@
 package web.model;
 
 
+
+import javax.persistence.*;
 import javax.validation.constraints.*;
 
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotEmpty(message = "The field \"First Name\" cannot be empty")
     @Size(min = 2, max = 20, message = "Field \"First Name\" should be between 2 and 20 characters")
+    @Column(name = "firstname")
     private String firstName;
     @NotEmpty(message = "The field \"Last Name\" cannot be empty")
     @Size(min = 2, max = 20, message = "Field \"Last Name\" should be between 2 and 20 characters")
+    @Column(name = "lastname")
     private String lastName;
     @Min(value = 0, message = "The age cannot be less than 0")
     @Max(value = 127, message = "The age cannot be more than 127")
+    @Column(name = "age")
     private byte age;
     @NotEmpty(message = "The field \"Email\" cannot be empty")
     @Email(message = "Email is not valid")
+    @Column(name = "email")
     private String email;
 
     public User() {

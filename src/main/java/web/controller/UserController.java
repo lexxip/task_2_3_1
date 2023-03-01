@@ -1,11 +1,12 @@
 package web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import web.dao.UserDaoImpl;
+import web.dao.UserDao;
 import web.model.User;
 
 import javax.validation.Valid;
@@ -14,10 +15,11 @@ import javax.validation.Valid;
 public class UserController {
 
     @Autowired
-    private UserDaoImpl userDao;
+    @Qualifier("userDaoJPAImpl")
+    private UserDao userDao;
 
     @GetMapping("/")
-    public String listUsers(Model model) { //ModelMap model
+    public String listUsers(Model model) {
         model.addAttribute("users", userDao.listUsers());
         return "index";
     }
