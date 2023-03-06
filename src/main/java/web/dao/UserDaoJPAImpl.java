@@ -10,7 +10,6 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Component
-@Transactional
 public class UserDaoJPAImpl implements UserDao{
 
     @PersistenceContext
@@ -20,13 +19,11 @@ public class UserDaoJPAImpl implements UserDao{
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<User> listUsers() {
         return entityManager.createQuery("select user from User user", User.class).getResultList();
     }
 
     @Override
-    @Transactional(readOnly = true)
     public User showUser(Long id) {
         TypedQuery<User> query = entityManager.createQuery("select user from User user where user.id = :id", User.class);
         query.setParameter("id", id);
